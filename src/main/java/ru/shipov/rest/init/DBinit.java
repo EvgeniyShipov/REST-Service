@@ -4,15 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import ru.shipov.rest.repository.ApplicationRepository;
-import ru.shipov.rest.repository.ContactRepository;
 import ru.shipov.rest.entity.Application;
 import ru.shipov.rest.entity.Contact;
+import ru.shipov.rest.repository.ApplicationRepository;
+import ru.shipov.rest.repository.ContactRepository;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Date;
-import java.util.Set;
 
 @Component
 public class DBinit implements ApplicationRunner {
