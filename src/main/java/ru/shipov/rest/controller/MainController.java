@@ -1,5 +1,7 @@
 package ru.shipov.rest.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +12,7 @@ import ru.shipov.rest.repository.ApplicationRepository;
 
 @RestController
 @RequestMapping
+@Api(value = "Main Controller", description = "controller handle one GET request")
 public class MainController {
 
     @Autowired
@@ -19,7 +22,8 @@ public class MainController {
             method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ResponseBody
-    public Application getApplication(@PathVariable Long contactId) {
+    @ApiOperation(value = "Return application by contact id, in JSON or XML")
+    public Application application(@PathVariable Long contactId) {
         checkArgument(contactId, "contactId");
         Application result = applicationRepository.findFirstByContactIdOrderByDtCreatedDesc(contactId);
         checkResult(result, contactId);
