@@ -1,30 +1,29 @@
 package ru.shipov.rest.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name="CONTACT")
+@JacksonXmlRootElement(localName = "CONTACT")
+@JsonRootName(value = "CONTACT")
+@Table(name = "CONTACT")
 public class Contact {
 
     @Id
     @GeneratedValue
     @Column(name = "CONTACT_ID", nullable = false)
-    private Long contactId;
-
-    @OneToMany(mappedBy = "contact")
-    @Column(name = "APPLICATION_ID", nullable = false)
-    private Set<Application> applications = new HashSet<>();
+    @JacksonXmlProperty(localName = "CONTACT_ID")
+    @JsonProperty(value = "CONTACT_ID")
+    private Long id;
 
     public Contact() {
     }
 
-    public Long getContactId() {
-        return contactId;
-    }
-
-    public Set<Application> getApplications() {
-        return applications;
+    public Long getId() {
+        return id;
     }
 }
