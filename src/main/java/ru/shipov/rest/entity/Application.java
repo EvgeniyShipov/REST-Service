@@ -24,12 +24,12 @@ public class Application {
     private Contact contact;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "APPLICATION_ID", nullable = false)
     @JacksonXmlProperty(localName = "APPLICATION_ID")
     @JsonProperty(value = "APPLICATION_ID")
     @ApiModelProperty("application id")
-    private Long id;
+    private Integer id;
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -50,12 +50,20 @@ public class Application {
     @JacksonXmlProperty(localName = "CONTACT_ID")
     @JsonProperty(value = "CONTACT_ID")
     @ApiModelProperty("contact id")
-    private Long contactId;
+    private Integer contactId;
 
     public Application() {
     }
 
-    public Application(Contact contact, Date dtCreated, String productName, Long contactId) {
+    public Application(Contact contact, Date dtCreated, String productName, Integer contactId) {
+        this.contact = contact;
+        this.dtCreated = dtCreated;
+        this.productName = productName;
+        this.contactId = contactId;
+    }
+
+    public Application(Integer id, Contact contact, Date dtCreated, String productName, Integer contactId) {
+        this.id = id;
         this.contact = contact;
         this.dtCreated = dtCreated;
         this.productName = productName;
@@ -66,7 +74,7 @@ public class Application {
         return contact;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -78,7 +86,7 @@ public class Application {
         return productName;
     }
 
-    public Long getContactId() {
+    public Integer getContactId() {
         return contactId;
     }
 }

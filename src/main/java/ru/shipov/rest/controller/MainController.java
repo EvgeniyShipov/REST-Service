@@ -18,24 +18,32 @@ public class MainController {
     @Autowired
     private ApplicationRepository applicationRepository;
 
-    @RequestMapping(path = "/start/{contactId}",
-            method = RequestMethod.GET,
-            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping(path = "/json/{contactId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    @ApiOperation(value = "Return application by contact id, in JSON or XML")
-    public Application application(@PathVariable Long contactId) {
+    @ApiOperation(value = "Return application by contact id, in JSON")
+    public Application applicationJson(@PathVariable Integer contactId) {
         checkArgument(contactId, "contactId");
         Application result = applicationRepository.findFirstByContactIdOrderByDtCreatedDesc(contactId);
         checkResult(result, contactId);
         return result;
     }
 
-    private void checkArgument(Long contactId, String argument) {
+    @RequestMapping(path = "/xml/{contactId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
+    @ResponseBody
+    @ApiOperation(value = "Return application by contact id, in XML")
+    public Application applicationXml(@PathVariable Integer contactId) {
+        checkArgument(contactId, "contactId");
+        Application result = applicationRepository.findFirstByContactIdOrderByDtCreatedDesc(contactId);
+        checkResult(result, contactId);
+        return result;
+    }
+
+    private void checkArgument(Integer contactId, String argument) {
         if (contactId == null)
             throw new NotValidArgumentException(argument);
     }
 
-    private void checkResult(Application application, Long id) {
+    private void checkResult(Application application, Object id) {
         if (application == null)
             throw new NotFoundException(id.toString());
     }

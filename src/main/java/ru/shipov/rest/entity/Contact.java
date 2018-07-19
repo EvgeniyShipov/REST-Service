@@ -15,17 +15,21 @@ import javax.persistence.*;
 public class Contact {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CONTACT_ID", nullable = false)
     @JacksonXmlProperty(localName = "CONTACT_ID")
     @JsonProperty(value = "CONTACT_ID")
     @ApiModelProperty("contact id")
-    private Long id;
+    private Integer id;
 
     public Contact() {
     }
 
-    public Long getId() {
+    public Contact(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
         return id;
     }
 }

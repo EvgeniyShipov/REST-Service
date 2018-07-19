@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,23 +22,23 @@ public class ExceptionHandlerController {
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Could not find")
     @ExceptionHandler(NotFoundException.class)
-    public void motFound(Exception e) {
+    public void notFound(Exception e) {
         logger.error(e.toString());
     }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Argument is not valid")
     @ExceptionHandler(NotValidArgumentException.class)
-    public void bsdRequest(Exception e) {
+    public void bedRequest(Exception e) {
         logger.error(e.toString());
     }
 
-    @ResponseStatus(value = HttpStatus.CONFLICT, reason = "Data integrity violation")
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public void conflict(Exception e) {
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Uncorrected request type")
+    @ExceptionHandler(NumberFormatException.class)
+    public void bedRequest2(Exception e) {
         logger.error(e.toString());
     }
 
-    @ResponseStatus(reason = "Database Error")
+    @ResponseStatus(value = HttpStatus.SERVICE_UNAVAILABLE, reason = "Database Error")
     @ExceptionHandler({SQLException.class, DataAccessException.class})
     public void databaseError(Exception e) {
         logger.error(e.toString());

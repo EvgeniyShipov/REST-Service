@@ -6,12 +6,12 @@ import ru.shipov.rest.entity.Contact;
 import java.util.List;
 import java.util.Optional;
 
-public interface ContactRepository extends CrudRepository<Contact, Long> {
+public interface ContactRepository extends CrudRepository<Contact, Integer> {
 
-    public Optional<Contact> findById(Long contactId);
+    public Optional<Contact> findById(Integer contactId);
 
     public List<Contact> findAll();
 
 //    @Query("SELECT app FROM Application app, Contact con WHERE con.contactId = ?1 AND app.dtCreated = (SELECT MAX(app.dtCreated) FROM app, con WHERE con.contactId = ?1)")
-//    public Application findApplication(Long contactId);
+//    public Application findApplication(Integer contactId);
 }
